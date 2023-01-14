@@ -6,6 +6,8 @@ code/helm_setup/custom_config.json
 code/helm_setup/charts/watson-nlp-kubernetes/values.yaml
 code/terraform_setup/.terraform.lock.hcl
 code/terraform_setup/kserve/
+code/terraform_setup/.terraform.lock.hcl
+code/helm_setup/watson-nlp-kserve/values.yaml
 
 .DS_Store
 backup.txt
@@ -39,5 +41,3 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-
-code/terraform_setup/.terraform.lock.hcl

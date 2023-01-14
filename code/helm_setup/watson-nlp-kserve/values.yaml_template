@@ -1,0 +1,7 @@
+# container registery access
+ibm_entitlement_secret: "IBM_ENTITLEMENT_SECRET"
+watson_runtime_image: "cp.icr.io/cp/ai/watson-nlp-runtime:1.0.20"
+watson_english_ton_model: "cp.icr.io/cp/ai/watson-nlp_classification_ensemble-workflow_lang_en_tone-stock:1.0.7"
+watson_english_syntax_model: "cp.icr.io/cp/ai/watson-nlp_syntax_izumo_lang_en_stock:1.0.7"
+modelmesh_namespace: "modelmesh-serving"
+default_namespace: "default"

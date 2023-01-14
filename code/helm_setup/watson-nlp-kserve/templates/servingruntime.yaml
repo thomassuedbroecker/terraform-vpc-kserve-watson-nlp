@@ -1,0 +1,41 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: watson-nlp-runtime
+  namespace: {{ .Values.modelmesh_namespace }}
+spec:
+  containers:
+  - env:
+      - name: ACCEPT_LICENSE
+        value: "true"
+      - name: LOG_LEVEL
+        value: info
+      - name: CAPACITY
+        value: "6000000000"
+      - name: DEFAULT_MODEL_SIZE
+        value: "500000000"
+      - name: METRICS_PORT
+        value: "2113"
+    args:
+      - --  
+      - python3
+      - -m
+      - watson_runtime.grpc_server
+    image: {{ .Values.watson_runtime_image }}
+    imagePullPolicy: IfNotPresent
+    name: watson-nlp-runtime
+#    resources:
+#      limits:
+#        cpu: 2
+#        memory: 8Gi
+#      requests:
+#        cpu: 1
+#        memory: 8Gi
+  grpcDataEndpoint: port:8085
+  grpcEndpoint: port:8085
+  multiModel: true
+  storageHelper:
+    disabled: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: watson-nlp

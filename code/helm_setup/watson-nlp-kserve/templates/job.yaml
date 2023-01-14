@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-upload
+  namespace: {{ .Values.modelmesh_namespace }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: syntax-izumo-en-stock
+          image: cp.icr.io/cp/ai/watson-nlp_syntax_izumo_lang_en_stock:1.0.7
+          env:
+            - name: UPLOAD
+              value: "true"
+            - name: ACCEPT_LICENSE
+              value: "true"
+            - name: S3_CONFIG_FILE
+              value: /storage-config/localMinIO
+            - name: UPLOAD_PATH
+              value: models
+          volumeMounts:
+            - mountPath: /storage-config
+              name: storage-config
+              readOnly: true
+      volumes:
+        - name: storage-config
+          secret:
+            defaultMode: 420
+            secretName: storage-config
+      restartPolicy: Never
+      serviceAccountName: pull-secret-sa
+  backoffLimit: 2

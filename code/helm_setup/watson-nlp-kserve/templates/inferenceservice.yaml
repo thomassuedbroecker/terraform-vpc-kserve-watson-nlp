@@ -1,0 +1,15 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: syntax-izumo-en
+  namespace: {{ .Values.modelmesh_namespace }}
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: watson-nlp
+      storage:
+        path: models/syntax_izumo_lang_en_stock
+        key: localMinIO

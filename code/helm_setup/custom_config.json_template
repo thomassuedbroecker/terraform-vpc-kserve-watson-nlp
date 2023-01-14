@@ -1,0 +1,9 @@
+{
+    "auths": {
+        "cp.icr.io": {
+            "username": "cp",
+            "password": "IBM_ENTITLEMENT_KEY",
+            "email": "IBM_ENTITLEMENT_EMAIL"
+        }
+    }
+}

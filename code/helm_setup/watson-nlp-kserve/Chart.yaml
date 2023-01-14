@@ -1,0 +1,6 @@
+apiVersion: v2
+version: 1.0.0
+appVersion: 1.0.0
+type: application
+description: "A Helm chart for Kubernetes to install the Watson NLP runtime Kubernetes and using kserve for the models."
+name: "watson-nlp-kserve"

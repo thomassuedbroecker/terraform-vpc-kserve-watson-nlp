@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: model-serving-config
+  namespace: {{ .Values.modelmesh_namespace }}
+data:
+  config.yaml: |
+    #Sample config overrides
+    serviceAccountName: pull-secret-sa
+    restProxy:
+      enabled: false

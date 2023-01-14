@@ -208,6 +208,49 @@ The image below shows the deployments of [`etcd`](https://etcd.io/docs/v3.5/quic
 
 ![](images/watson-nlp-kserve-01.png)
 
+## Deploy Watson NLP embed to KServe with Helm
+
+### Step 1: Navigate to the `helm_setup`
+
+```sh
+cd code/helm_setup
+```
+
+### Step 2: Create a `.env` file
+
+```sh
+cat .env_template > .env
+```
+
+### Step 3: Add an IBM Cloud access key to your local `.env` file
+
+```sh
+export IC_API_KEY=YOUR_IBM_CLOUD_ACCESS_KEY
+export IBM_ENTITLEMENT_KEY="YOUR_KEY"
+export IBM_ENTITLEMENT_EMAIL="YOUR_EMAIL"
+export CLUSTER_ID="YOUR_CLUSTER"
+export REGION="us-east"
+export GROUP="tsuedbro"
+```
+
+### Step 4: Execute the bash automation
+
+```sh
+sh deploy-watson-nlp-to-kserve.sh
+```
+
+The script does following steps and the links are pointing to the relevant function in the bash automation:
+
+1. [TBD](TBD)
+
+* Example output:
+
+```sh
+TBD
+```
+
+
+
 
 
 
