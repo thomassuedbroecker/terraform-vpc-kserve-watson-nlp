@@ -156,7 +156,7 @@ mkdir $(pwd)/kserve
 cd kserve
 ```
 
-### Step 5: Clone the KServe `Modelmesh Serving` GitHub project
+### Step 5: Clone the `KServe` `Modelmesh Serving` GitHub project
 
 Navigate to the `modelmesh-serving` directory
 
@@ -166,7 +166,7 @@ git clone -b $RELEASE --depth 1 --single-branch https://github.com/kserve/modelm
 cd modelmesh-serving
 ```
 
-### Step 6: Install the `modelmesh-serving` to cluster using the `--quickstart`
+### Step 6: Install `KServe` to the cluster
 
 ```sh
 kubectl create namespace modelmesh-serving
