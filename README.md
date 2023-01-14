@@ -123,9 +123,9 @@ Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
 *********************************
 ```
 
-## The Setup KServe on the Kuberenets cluster
+## The setup of KServe on the Kuberenets cluster
 
-The complete information of the installation in available at the [KServe installation documentation](https://github.com/kserve/modelmesh-serving/blob/release-0.9/docs/install/install-script.md)
+The complete information of the installation is available in the [KServe installation documentation](https://github.com/kserve/modelmesh-serving/blob/release-0.9/docs/install/install-script.md)
 
 ### Step 1: Navigate to the `terraform_setup`
 
@@ -187,9 +187,28 @@ servingruntime.serving.kserve.io/triton-2.x created
 Successfully installed ModelMesh Serving!
 ```
 
-> Note: The option `--quickstart` installs an [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) (Object Storage) container on the cluster. The image below show the deployments on the Kubernetes cluster.
+> Note: The option `--quickstart` installs an [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) (Object Storage) container on the cluster.
+
+### Step 7: Verify the setup
+
+```sh
+kubectl get pods --namespace=modelmesh-serving
+```
+
+* Example output:
+
+```sh
+NAME                                    READY   STATUS    RESTARTS   AGE
+etcd-8456b8f45d-w7h5n                   1/1     Running   0          56m
+minio-5498995d49-bdrqt                  1/1     Running   0          56m
+modelmesh-controller-556b777bbc-6kbjk   1/1     Running   0          2m32s
+```
+
+The image below shows the deployments of [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) on the Kubernetes cluster.
 
 ![](images/watson-nlp-kserve-01.png)
+
+
 
 
 
