@@ -5,6 +5,8 @@ code/terraform_setup/.env
 code/helm_setup/custom_config.json
 code/helm_setup/charts/watson-nlp-kubernetes/values.yaml
 code/terraform_setup/.terraform.lock.hcl
+code/terraform_setup/kserve/
+
 .DS_Store
 backup.txt
 

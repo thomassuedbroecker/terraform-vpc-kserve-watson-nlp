@@ -4,7 +4,7 @@ This example project has three objectives.
 
 * Create an IBM Cloud Kubernetes cluster in a [`Virtual Private Cloud` (VPC) environment](https://www.ibm.com/topics/vpc) with [Terraform](https://www.terraform.io/)
 
-* Setup of KServe on the created Kubernetes cluster.
+* Setup of[KServe](https://kserve.github.io/website/0.9/) on the created Kubernetes cluster.
 
 * Deploy [Watson NLP for embed`](https://www.ibm.com/docs/en/watson-libraries?topic=watson-natural-language-processing-library-embed-home) to the created cluster using KServe with [Helm](https://helm.sh/)
 
@@ -50,6 +50,7 @@ To use the bash automation you need to have following tools to be installed on y
 * [Terraform](https://www.terraform.io/)
 * [Helm](https://helm.sh/)
 * [kubectl](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/)
+* [gRPCurl](https://github.com/fullstorydev/grpcurl)
 
 ### Step 1: Clone the repo
 
@@ -121,6 +122,75 @@ sh create_vpc_kubernetes_cluster_with_terraform.sh
 Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
 *********************************
 ```
+
+## The Setup KServe on the Kuberenets cluster
+
+The complete information of the installation in available at the [KServe installation documentation](https://github.com/kserve/modelmesh-serving/blob/release-0.9/docs/install/install-script.md)
+
+### Step 1: Navigate to the `terraform_setup`
+
+```sh
+cd code/terraform_setup
+```
+
+### Step 2: Log on to IBM Cloud
+
+```sh
+source ./.env
+ibmcloud login --apikey $IC_API_KEY
+ibmcloud target -r $REGION
+ibmcloud target -g $GROUP
+```
+
+### Step 3: Connect to the cluster
+
+```sh
+CLUSTER_ID="YOUR _CLUSTER_ID"
+ibmcloud ks cluster config -c $CLUSTER_ID
+```
+
+### Step 4: Create an installation directory
+
+```sh
+mkdir $(pwd)/kserve
+cd kserve
+```
+
+### Step 5: Clone the KServe `Modelmesh Serving` GitHub project
+
+Navigate to the `modelmesh-serving` directory
+
+```sh
+RELEASE=release-0.9
+git clone -b $RELEASE --depth 1 --single-branch https://github.com/kserve/modelmesh-serving.git
+cd modelmesh-serving
+```
+
+### Step 6: Install the `modelmesh-serving` to cluster using the `--quickstart`
+
+```sh
+kubectl create namespace modelmesh-serving
+./scripts/install.sh --namespace modelmesh-serving --quickstart
+``` 
+
+* Example output:
+
+```sh
+namespace/modelmesh-serving created
+Setting kube context to use namespace: modelmesh-serving
+...
+All -l control-plane=modelmesh-controller pods are running and ready.
+Installing ModelMesh Serving built-in runtimes
+servingruntime.serving.kserve.io/mlserver-0.x created
+servingruntime.serving.kserve.io/ovms-1.x created
+servingruntime.serving.kserve.io/triton-2.x created
+Successfully installed ModelMesh Serving!
+```
+
+> Note: The option `--quickstart` installs an [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) (Object Storage) container on the cluster. The image below show the deployments on the Kubernetes cluster.
+
+![](images/watson-nlp-kserve-01.png)
+
 
 
 
