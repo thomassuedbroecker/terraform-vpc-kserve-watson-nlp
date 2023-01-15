@@ -52,25 +52,6 @@ function createDockerCustomConfigFile () {
     cat $(pwd)/charts/watson-nlp-kubernetes/values.yaml
 }
 
-function copyStorageConfig () {
-
-    echo ""
-    echo "*********************"
-    echo "copysStorageConfig"
-    echo "*********************"
-    echo ""
-
-    TEMPFILE_1=tmp-storage-config-template.yaml
-    TEMPFILE_2=tmp-storage-config-default.yaml
-    SEARCH="namespace: modelmesh-serving"
-    REPLACE="namespace: default"
-    kubectl get secret $STORAGE_CONFIG --namespace=$MESH_NAMESPACE -o yaml > $(pwd)/$TEMPFILE_1
-    sed "s+$SEARCH+$REPLACE+g" $(pwd)/$TEMPFILE_1 > $(pwd)/$TEMPFILE_2
-    kubectl apply -f $(pwd)/$TEMPFILE_2
-    rm $(pwd)/$TEMPFILE_2
-    rm $(pwd)/$TEMPFILE_1
-}
-
 function createDockerCustomConfigFile () {
 
     echo ""
@@ -229,7 +210,7 @@ function verifyPod () {
 
     echo ""
     echo "*********************"
-    echo "verifyPod could take 10 min"
+    echo "verifyPod could take up to 10 min"
     echo "*********************"
     echo ""
 
@@ -404,8 +385,6 @@ loginIBMCloud
 connectToCluster
 
 createDockerCustomConfigFile
-
-copyStorageConfig
 
 installHelmChart
 

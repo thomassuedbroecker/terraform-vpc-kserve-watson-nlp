@@ -1,12 +1,12 @@
-# Run Watson NLP for Embed on an IBM Cloud Kubernetes cluster
+# Run Watson NLP for Embed on [KServe](https://kserve.github.io/website/0.9/)
 
 This example project has three objectives.
 
-* Create an IBM Cloud Kubernetes cluster in a [`Virtual Private Cloud` (VPC) environment](https://www.ibm.com/topics/vpc) with [Terraform](https://www.terraform.io/)
+1. Create an IBM Cloud Kubernetes cluster in a [`Virtual Private Cloud` (VPC) environment](https://www.ibm.com/topics/vpc) with [Terraform](https://www.terraform.io/)
 
-* Setup of[KServe](https://kserve.github.io/website/0.9/) on the created Kubernetes cluster.
+2. Setup of [KServe](https://kserve.github.io/website/0.9/) on the created Kubernetes cluster.
 
-* Deploy [Watson NLP for embed`](https://www.ibm.com/docs/en/watson-libraries?topic=watson-natural-language-processing-library-embed-home) to the created cluster using KServe with [Helm](https://helm.sh/)
+3. Deploy [Watson NLP for embed`](https://www.ibm.com/docs/en/watson-libraries?topic=watson-natural-language-processing-library-embed-home) to the created cluster using [KServe](https://kserve.github.io/website/0.9/) with [Helm](https://helm.sh/)
 
 The example project reuses code from project [`Run Watson NLP for Embed on an IBM Cloud Kubernetes cluster`](https://github.com/thomassuedbroecker/terraform-vpc-kubernetes-watson-nlp).
 
@@ -248,6 +248,10 @@ The script does following steps and the links are pointing to the relevant funct
 ```sh
 TBD
 ```
+
+The image below shows all pods in the Kubernetes cluster.
+
+![](/images/watson-nlp-kserve-02.png)
 
 
 
