@@ -449,6 +449,8 @@ Invoke a 'grpcurl' command
 Check the output and press any key to move on:
 ```
 
+* Now the you can deinstall the Helm chart
+
 ```sh
 *********************
 Function 'uninstallHelmChart'
