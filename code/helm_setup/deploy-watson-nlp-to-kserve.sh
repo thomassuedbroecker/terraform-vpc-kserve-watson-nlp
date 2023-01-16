@@ -48,8 +48,8 @@ function createDockerCustomConfigFile () {
     IBM_ENTITLEMENT_SECRET=$(base64 -i "$(pwd)/custom_config.json")
     echo "IBM_ENTITLEMENT_SECRET: $IBM_ENTITLEMENT_SECRET"
 
-    sed "s+IBM_ENTITLEMENT_SECRET+$IBM_ENTITLEMENT_SECRET+g" $(pwd)/charts/watson-nlp-kserve/values.yaml_template > $(pwd)/charts/watson-nlp-kserve/values.yaml
-    cat $(pwd)/charts/watson-nlp-kserve/values.yaml
+    sed "s+IBM_ENTITLEMENT_SECRET+$IBM_ENTITLEMENT_SECRET+g" $(pwd)/watson-nlp-kserve/values.yaml_template > $(pwd)/watson-nlp-kserve/values.yaml
+    cat $(pwd)/watson-nlp-kserve/values.yaml
 }
 
 function installHelmChart () {
