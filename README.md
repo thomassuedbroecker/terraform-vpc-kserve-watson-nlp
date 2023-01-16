@@ -316,7 +316,6 @@ Status: 1/1
 ------------------------------------------------------------------------
 NAME                                                    READY   STATUS      RESTARTS      AGE
 ...
-0             75s
 modelmesh-controller-556b777bbc-wtsmb                   1/1     Running     0             62s
 modelmesh-serving-watson-nlp-runtime-78f985bd47-kq9fc   3/3     Running     1 (70s ago)   75s
 modelmesh-serving-watson-nlp-runtime-78f985bd47-sh8bk   3/3     Running     1 (70s ago)   75s
@@ -373,10 +372,10 @@ Status: <pending>
 ------------------------------------------------------------------------
 ...
 (11) from max retrys (15)
-Status: 52.116.120.202
-2023-01-16 21:09:16 Status: minio-frontend-vpc-nlb is created (52.116.120.202)
+Status: 52.XXX.XXX.XX
+2023-01-16 21:09:16 Status: minio-frontend-vpc-nlb is created (52.XXX.XXX.XXX)
 ------------------------------------------------------------------------
-EXTERNAL_IP: 52.116.XXX.XXX
+EXTERNAL_IP: 52.XXX.XXX.XXX
 -----------------
 MinIO credentials
 -----------------
@@ -426,7 +425,7 @@ Cloning into 'ibm-watson-embed-clients'...
 Receiving objects: 100% (139/139), 93.19 KiB | 539.00 KiB/s, done.
 Resolving deltas: 100% (44/44), done.
 
-EXTERNAL_IP: 169.63.101.179
+EXTERNAL_IP: 169.XX.XXX.XXX
 
 Invoke a 'grpcurl' command
 
