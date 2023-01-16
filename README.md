@@ -123,7 +123,7 @@ Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
 *********************************
 ```
 
-## The setup of KServe on the Kuberenets cluster
+## The setup of KServe on the Kubernetes cluster
 
 The complete information of the installation is available in the [KServe installation documentation](https://github.com/kserve/modelmesh-serving/blob/release-0.9/docs/install/install-script.md)
 
@@ -156,7 +156,7 @@ mkdir $(pwd)/kserve
 cd kserve
 ```
 
-### Step 5: Clone the `KServe` `Modelmesh Serving` GitHub project
+### Step 5: Clone the `KServe` `Model-mesh Serving` GitHub project
 
 Navigate to the `modelmesh-serving` directory
 
@@ -171,7 +171,7 @@ cd modelmesh-serving
 ```sh
 kubectl create namespace modelmesh-serving
 ./scripts/install.sh --namespace modelmesh-serving --quickstart
-``` 
+```
 
 * Example output:
 
@@ -252,7 +252,6 @@ TBD
 The image below shows all pods in the Kubernetes cluster.
 
 ![](/images/watson-nlp-kserve-02.png)
-
 
 
 
