@@ -62,7 +62,6 @@ function installHelmChart () {
 
     TEMP_PATH_ROOT=$(pwd)
     cd $TEMP_PATH_ROOT/charts
-    TEMP_PATH_EXECUTION=$(pwd)
     
     helm dependency update ./watson-nlp-kserve/
     helm install --dry-run --debug helm-test ./watson-nlp-kserve/
@@ -90,11 +89,12 @@ function installHelmChart () {
     kubectl scale deployment/modelmesh-controller --replicas=1 --all -n $MESH_NAMESPACE
     
     verifyPod
+    kubectl get pods -n $MESH_NAMESPACE
     verifyServingruntime
-
-    kubectl get servingruntimes -n $MESH_NAMESPACE | grep watson-nlp-runtime  
+    kubectl get servingruntimes -n $MESH_NAMESPACE
+    verifyInferenceservice
     kubectl get inferenceservice -n $MESH_NAMESPACE
-
+    
     cd $TEMP_PATH_ROOT
 }
 
@@ -190,7 +190,6 @@ function uninstallHelmChart () {
 
     TEMP_PATH_ROOT=$(pwd)
     cd $TEMP_PATH_ROOT/charts
-    TEMP_PATH_EXECUTION=$(pwd)
 
     helm uninstall $HELM_RELASE_NAME
 
