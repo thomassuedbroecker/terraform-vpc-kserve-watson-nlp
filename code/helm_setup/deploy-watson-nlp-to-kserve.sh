@@ -48,22 +48,6 @@ function createDockerCustomConfigFile () {
     IBM_ENTITLEMENT_SECRET=$(base64 -i "$(pwd)/custom_config.json")
     echo "IBM_ENTITLEMENT_SECRET: $IBM_ENTITLEMENT_SECRET"
 
-    sed "s+IBM_ENTITLEMENT_SECRET+$IBM_ENTITLEMENT_SECRET+g" $(pwd)/charts/watson-nlp-kubernetes/values.yaml_template > $(pwd)/charts/watson-nlp-kubernetes/values.yaml
-    cat $(pwd)/charts/watson-nlp-kubernetes/values.yaml
-}
-
-function createDockerCustomConfigFile () {
-
-    echo ""
-    echo "*********************"
-    echo "createDockerCustomConfigFile"
-    echo "*********************"
-    echo ""
-
-    sed "s+IBM_ENTITLEMENT_KEY+$IBM_ENTITLEMENT_KEY+g;s+IBM_ENTITLEMENT_EMAIL+$IBM_ENTITLEMENT_EMAIL+g" "$(pwd)/custom_config.json_template" > "$(pwd)/custom_config.json"
-    IBM_ENTITLEMENT_SECRET=$(base64 -i "$(pwd)/custom_config.json")
-    echo "IBM_ENTITLEMENT_SECRET: $IBM_ENTITLEMENT_SECRET"
-
     sed "s+IBM_ENTITLEMENT_SECRET+$IBM_ENTITLEMENT_SECRET+g" $(pwd)/charts/watson-nlp-kserve/values.yaml_template > $(pwd)/charts/watson-nlp-kserve/values.yaml
     cat $(pwd)/charts/watson-nlp-kserve/values.yaml
 }
