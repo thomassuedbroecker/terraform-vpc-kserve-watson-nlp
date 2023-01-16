@@ -61,12 +61,11 @@ function installHelmChart () {
     echo ""
 
     TEMP_PATH_ROOT=$(pwd)
-    cd $TEMP_PATH_ROOT/charts
     
     helm dependency update ./watson-nlp-kserve/
     helm install --dry-run --debug helm-test ./watson-nlp-kserve/
 
-    helm lint
+    helm lint ./watson-nlp-kserve/
     helm install $HELM_RELASE_NAME ./watson-nlp-kserve
 
     echo ""
@@ -161,12 +160,11 @@ function testModel () {
     SERVICE=modelmash-vpc-nlb
 
     EXTERNAL_IP=$(kubectl get svc $SERVICE -n $MESH_NAMESPACE | grep  $SERVICE | awk '{print $4;}')
+    echo ""
     echo "EXTERNAL_IP: $EXTERNAL_IP"
-
     echo ""
     echo "Invoke a 'grpcurl' command"
     echo ""
-
     grpcurl -plaintext -proto ./common-service.proto \
                              -H 'mm-vmodel-id: syntax-izumo-en' \
                              -d '{"parsers": ["TOKEN"],"rawDocument": {"text": "This is a test."}}' \
@@ -188,12 +186,7 @@ function uninstallHelmChart () {
     echo "*********************"
     echo ""
 
-    TEMP_PATH_ROOT=$(pwd)
-    cd $TEMP_PATH_ROOT/charts
-
     helm uninstall $HELM_RELASE_NAME
-
-    cd $TEMP_PATH_ROOT
 }
 
 # ********* internal functions **********
