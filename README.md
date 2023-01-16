@@ -237,13 +237,13 @@ export GROUP="tsuedbro"
 
 The script does following steps and the links are pointing to the relevant function in the bash automation:
 
-1. [Log in to IBM Cloud.](TBD)
-2. [It connects to the Kubernetes cluster.](TBD)
-3. [It creates a `Docker Config File` which will be used to create a pull secret.](TBD)
-4. [It installs the Helm chart for `Watson NLP for Embed` on KServe.](TBD)
-5. [It verifies the exposed `MinIO` frontend application is available and provides to check the uploaded model.](TBD)
-6. [It verifies the exposed `Serving` endpoint and invokes a `grpcurl`.](TBD) 
-7. [It removes the Helm chart from the Kubernetes cluster.](TBD) 
+1. [Log in to IBM Cloud.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L15)
+2. [It connects to the Kubernetes cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L28)
+3. [It creates a `Docker Config File` which will be used to create a pull secret.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L39)
+4. [It installs the Helm chart for `Watson NLP for Embed` on KServe.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L55)
+5. [It verifies the exposed `MinIO` frontend application is available and provides to check the uploaded model.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L100)
+6. [It verifies the exposed `Serving` endpoint and tests the model by invoke a `grpcurl` command.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L144) 
+7. [It removes the Helm chart from the Kubernetes cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L181) 
 
 ```sh
 sh deploy-watson-nlp-to-kserve.sh
