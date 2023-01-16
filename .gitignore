@@ -8,6 +8,7 @@ code/terraform_setup/.terraform.lock.hcl
 code/terraform_setup/kserve/
 code/terraform_setup/.terraform.lock.hcl
 code/helm_setup/watson-nlp-kserve/values.yaml
+code/helm_setup/tmp
 
 .DS_Store
 backup.txt
