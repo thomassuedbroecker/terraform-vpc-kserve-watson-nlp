@@ -187,7 +187,7 @@ servingruntime.serving.kserve.io/triton-2.x created
 Successfully installed ModelMesh Serving!
 ```
 
-> Note: The option `--quickstart` installs an [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) (Object Storage) container on the cluster.
+> Note: The option `--quickstart` installs an [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`MinIO`](https://github.com/minio/minio) (Object Storage) container on the cluster.
 
 ### Step 7: Verify the setup
 
@@ -204,7 +204,7 @@ minio-5498995d49-bdrqt                  1/1     Running   0          56m
 modelmesh-controller-556b777bbc-6kbjk   1/1     Running   0          2m32s
 ```
 
-The image below shows the deployments of [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`minio`](https://github.com/minio/minio) on the Kubernetes cluster.
+The image below shows the deployments of [`etcd`](https://etcd.io/docs/v3.5/quickstart/) and a [`MinIO`](https://github.com/minio/minio) on the Kubernetes cluster.
 
 ![](images/watson-nlp-kserve-01.png)
 

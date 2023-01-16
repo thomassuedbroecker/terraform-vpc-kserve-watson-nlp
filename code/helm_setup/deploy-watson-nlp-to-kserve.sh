@@ -97,11 +97,11 @@ function installHelmChart () {
     cd $TEMP_PATH_ROOT
 }
 
-function verifyMinioLoadbalancer () {
+function verifyMinIOLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo "verifyMinioLoadbalancer"
+    echo "verifyMinIOLoadbalancer"
     echo "this could take up to 10 min"
     echo "*********************"
     echo ""
@@ -111,26 +111,29 @@ function verifyMinioLoadbalancer () {
     TEMPFILE_1=tmp-storage-config-extract-01.json
     TEMPFILE_2=tmp-storage-config-extract-02.json
     SERVICE=minio-frontend-vpc-nlb
-
+    
     EXTERNAL_IP=$(kubectl get svc $SERVICE -n $MESH_NAMESPACE | grep  $SERVICE | awk '{print $4;}')
     echo "EXTERNAL_IP: $EXTERNAL_IP"
     
     kubectl get secret $STORAGE_CONFIG --namespace=$MESH_NAMESPACE -o json > $(pwd)/$TEMPFILE_1
-    cat $(pwd)/$TEMPFILE_1 | jq '.data.localMinIO' | sed 's/"//g' | base64 -d > $(pwd)/$TEMPFILE_2
+    cat $(pwd)/$TEMPFILE_1 | jq '.data.localminio' | sed 's/"//g' | base64 -d > $(pwd)/$TEMPFILE_2
     
     ACCESS_KEY_ID=$(cat $(pwd)/$TEMPFILE_2 | jq '.access_key_id' | sed 's/"//g')
     SECRET_KEY=$(cat $(pwd)/$TEMPFILE_2 | jq '.secret_access_key' | sed 's/"//g')
-
+    
+    echo "-----------------"
+    echo "MinIO credentials"
+    echo "-----------------"
     echo "Access Key: $ACCESS_KEY_ID"
     echo "Secret Key: $SECRET_KEY"
-
-    echo "Verify open minio"
+    echo ""
+    echo "Open MinIO web application:"
     open "http://$EXTERNAL_IP:9000"
-
     echo ""
-    echo "Verify output and press any key to move on:"
+    echo "1. Log on to the web application."
+    echo "2. Select 'modelmesh-example-models.models'"
+    echo "3. Check, does the model 'syntax_izumo_lang_en_stock' exist?"
     echo ""
-
     read ANY_VALUE
 
     rm $(pwd)/$TEMPFILE_2
@@ -158,12 +161,16 @@ function testModel () {
     EXTERNAL_IP=$(kubectl get svc $SERVICE -n $MESH_NAMESPACE | grep  $SERVICE | awk '{print $4;}')
     echo "EXTERNAL_IP: $EXTERNAL_IP"
 
+    echo ""
+    echo "Invoke a 'grpcurl' command"
+    echo ""
+
     grpcurl -plaintext -proto ./common-service.proto \
                              -H 'mm-vmodel-id: syntax-izumo-en' \
                              -d '{"parsers": ["TOKEN"],"rawDocument": {"text": "This is a test."}}' \
                              $EXTERNAL_IP:8033 watson.runtime.nlp.v1.NlpService.SyntaxPredict
     echo ""
-    echo "Verify output and press any key to move on:"
+    echo "Check the output and press any key to move on:"
     echo ""
     read ANY_VALUE
 
@@ -372,7 +379,7 @@ createDockerCustomConfigFile
 
 installHelmChart
 
-verifyMinioLoadbalancer
+verifyMinIOLoadbalancer
 
 testModel
 
