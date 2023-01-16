@@ -235,7 +235,7 @@ export GROUP="tsuedbro"
 
 ### Step 4: Execute the bash automation
 
-The script does following steps and the links are pointing to the relevant function in the bash automation:
+The script does following steps and the links are pointing to the relevant function in the bash automation :
 
 1. [Log in to IBM Cloud.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L15)
 2. [It connects to the Kubernetes cluster.](https://github.com/thomassuedbroecker/terraform-vpc-kserve-watson-nlp/blob/main/code/helm_setup/deploy-watson-nlp-to-kserve.sh#L28)
