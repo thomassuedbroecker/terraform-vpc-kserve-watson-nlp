@@ -16,7 +16,7 @@ function loginIBMCloud () {
     
     echo ""
     echo "*********************"
-    echo "LoginIBMCloud"
+    echo "Function 'loginIBMCloud'"
     echo "*********************"
     echo ""
 
@@ -29,7 +29,7 @@ function connectToCluster () {
 
     echo ""
     echo "*********************"
-    echo "ConnectToCluster"
+    echo "Function 'connectToCluster'"
     echo "*********************"
     echo ""
 
@@ -40,7 +40,7 @@ function createDockerCustomConfigFile () {
 
     echo ""
     echo "*********************"
-    echo "CreateDockerCustomConfigFile"
+    echo "Function 'createDockerCustomConfigFile'"
     echo "*********************"
     echo ""
 
@@ -56,7 +56,7 @@ function installHelmChart () {
 
     echo ""
     echo "*********************"
-    echo "InstallHelmChart"
+    echo "Function 'installHelmChart'"
     echo "*********************"
     echo ""
 
@@ -94,12 +94,6 @@ function installHelmChart () {
 
     kubectl get servingruntimes -n $MESH_NAMESPACE | grep watson-nlp-runtime  
     kubectl get inferenceservice -n $MESH_NAMESPACE
-        
-    echo ""
-    echo "Verify output and press any key to move on:"
-    echo ""
-
-    read ANY_VALUE
 
     cd $TEMP_PATH_ROOT
 }
@@ -108,7 +102,7 @@ function verifyMinIOLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo "VerifyMinIOLoadbalancer"
+    echo "Function 'verifyMinIOLoadbalancer'"
     echo "This could take up to 10 min"
     echo "*********************"
     echo ""
@@ -152,7 +146,7 @@ function testModel () {
 
     echo ""
     echo "*********************"
-    echo "TestModel"
+    echo "Function 'TestModel'"
     echo "*********************"
     echo ""  
 
@@ -190,7 +184,7 @@ function uninstallHelmChart () {
 
     echo ""
     echo "*********************"
-    echo "uninstallHelmChart"
+    echo "Function 'uninstallHelmChart'"
     echo "*********************"
     echo ""
 
@@ -209,7 +203,7 @@ function verifyPod () {
 
     echo ""
     echo "*********************"
-    echo "verifyPod"
+    echo "Function 'verifyPod'"
     echo "This can take up to 10 min"
     echo "*********************"
     echo ""
@@ -252,7 +246,7 @@ function verifyLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo "verifyLoadbalancer internal"
+    echo "Function 'verifyLoadbalancer' internal"
     echo "This can take up to 5 min"
     echo "*********************"
     echo ""
@@ -295,7 +289,7 @@ function verifyModelMeshLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo "verifyModelMeshLoadbalancer internal"
+    echo "Function 'verifyModelMeshLoadbalancer' internal"
     echo "This can take up to 5 min"
     echo "*********************"
     echo ""
@@ -338,7 +332,7 @@ function verifyServingruntime () {
 
     echo ""
     echo "*********************"
-    echo "verifyServingruntime internal"
+    echo "Function 'verifyServingruntime' internal"
     echo "This can take up to 5 min"
     echo "*********************"
     echo ""
@@ -381,7 +375,7 @@ function verifyInferenceservice () {
 
     echo ""
     echo "*********************"
-    echo "inferenceservice internal"
+    echo "Function 'inferenceservice' internal"
     echo "This can take up to 5 min"
     echo "*********************"
     echo ""
