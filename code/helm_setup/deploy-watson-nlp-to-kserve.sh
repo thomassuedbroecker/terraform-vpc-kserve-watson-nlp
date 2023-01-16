@@ -16,7 +16,7 @@ function loginIBMCloud () {
     
     echo ""
     echo "*********************"
-    echo "loginIBMCloud"
+    echo "LoginIBMCloud"
     echo "*********************"
     echo ""
 
@@ -29,7 +29,7 @@ function connectToCluster () {
 
     echo ""
     echo "*********************"
-    echo "connectToCluster"
+    echo "ConnectToCluster"
     echo "*********************"
     echo ""
 
@@ -40,7 +40,7 @@ function createDockerCustomConfigFile () {
 
     echo ""
     echo "*********************"
-    echo "createDockerCustomConfigFile"
+    echo "CreateDockerCustomConfigFile"
     echo "*********************"
     echo ""
 
@@ -56,7 +56,7 @@ function installHelmChart () {
 
     echo ""
     echo "*********************"
-    echo "installHelmChart"
+    echo "InstallHelmChart"
     echo "*********************"
     echo ""
 
@@ -70,13 +70,20 @@ function installHelmChart () {
     helm lint
     helm install $HELM_RELASE_NAME ./watson-nlp-kserve
 
+    echo ""
+    echo "Patch the service accounts with the 'imagePullSecrets'"
+    echo ""
+
     kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}' -n $MESH_NAMESPACE
     kubectl patch serviceaccount modelmesh -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}' -n $MESH_NAMESPACE
     kubectl patch serviceaccount modelmesh-controller -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}' -n $MESH_NAMESPACE
 
-    # Ensure the changes are applied
-    # Restart the model controller
+    echo ""
+    echo "Ensure the changes are applied"
+    echo "Restart the model controller"
+    echo ""
     echo "Scale down"
+    echo ""
     kubectl scale deployment/modelmesh-controller --replicas=0 --all -n $MESH_NAMESPACE
     sleep 10
     echo "Scale up"
@@ -101,8 +108,8 @@ function verifyMinIOLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo "verifyMinIOLoadbalancer"
-    echo "this could take up to 10 min"
+    echo "VerifyMinIOLoadbalancer"
+    echo "This could take up to 10 min"
     echo "*********************"
     echo ""
 
@@ -116,7 +123,7 @@ function verifyMinIOLoadbalancer () {
     echo "EXTERNAL_IP: $EXTERNAL_IP"
     
     kubectl get secret $STORAGE_CONFIG --namespace=$MESH_NAMESPACE -o json > $(pwd)/$TEMPFILE_1
-    cat $(pwd)/$TEMPFILE_1 | jq '.data.localminio' | sed 's/"//g' | base64 -d > $(pwd)/$TEMPFILE_2
+    cat $(pwd)/$TEMPFILE_1 | jq '.data.localMinIO' | sed 's/"//g' | base64 -d > $(pwd)/$TEMPFILE_2
     
     ACCESS_KEY_ID=$(cat $(pwd)/$TEMPFILE_2 | jq '.access_key_id' | sed 's/"//g')
     SECRET_KEY=$(cat $(pwd)/$TEMPFILE_2 | jq '.secret_access_key' | sed 's/"//g')
@@ -134,6 +141,7 @@ function verifyMinIOLoadbalancer () {
     echo "2. Select 'modelmesh-example-models.models'"
     echo "3. Check, does the model 'syntax_izumo_lang_en_stock' exist?"
     echo ""
+    echo "Press any key to move on:"
     read ANY_VALUE
 
     rm $(pwd)/$TEMPFILE_2
@@ -144,7 +152,7 @@ function testModel () {
 
     echo ""
     echo "*********************"
-    echo " testModel"
+    echo "TestModel"
     echo "*********************"
     echo ""  
 
@@ -201,7 +209,8 @@ function verifyPod () {
 
     echo ""
     echo "*********************"
-    echo "verifyPod could take up to 10 min"
+    echo "verifyPod"
+    echo "This can take up to 10 min"
     echo "*********************"
     echo ""
 
@@ -244,6 +253,7 @@ function verifyLoadbalancer () {
     echo ""
     echo "*********************"
     echo "verifyLoadbalancer internal"
+    echo "This can take up to 5 min"
     echo "*********************"
     echo ""
 
@@ -285,7 +295,8 @@ function verifyModelMeshLoadbalancer () {
 
     echo ""
     echo "*********************"
-    echo " verifyModelMeshLoadbalancer internal"
+    echo "verifyModelMeshLoadbalancer internal"
+    echo "This can take up to 5 min"
     echo "*********************"
     echo ""
 
@@ -328,8 +339,7 @@ function verifyServingruntime () {
     echo ""
     echo "*********************"
     echo "verifyServingruntime internal"
-    echo "This can take up to 5 min, because"
-    echo "of the scaling."
+    echo "This can take up to 5 min"
     echo "*********************"
     echo ""
 
@@ -363,6 +373,49 @@ function verifyServingruntime () {
                     echo "------------------------------------------------------------------------"
                 fi
                 sleep 20
+            done
+        done
+}
+
+function verifyInferenceservice () {
+
+    echo ""
+    echo "*********************"
+    echo "inferenceservice internal"
+    echo "This can take up to 5 min"
+    echo "*********************"
+    echo ""
+
+    export max_retrys=20
+    j=0
+    array=("syntax-izumo-en")
+    export STATUS_SUCCESS="True"
+    for i in "${array[@]}"
+        do
+            echo ""
+            echo "------------------------------------------------------------------------"
+            echo "Check for $i"
+            j=0
+            export FIND=$i
+            while :
+            do    
+            ((j++))
+            echo "($j) from max retrys ($max_retrys)"
+            STATUS_CHECK=$(kubectl get inferenceservice $FIND -n $MESH_NAMESPACE | grep $FIND | awk '{print $3;}')
+            echo "Status: $STATUS_CHECK"
+            if [ "$STATUS_CHECK" = "$STATUS_SUCCESS" ]; then
+                    echo "$(date +'%F %H:%M:%S') Status: $FIND is created"
+                    echo "------------------------------------------------------------------------"
+                    break
+                elif [[ $j -eq $max_retrys ]]; then
+                    echo "$(date +'%F %H:%M:%S') Maybe a problem does exists!"
+                    echo "------------------------------------------------------------------------"
+                    exit 1              
+                else
+                    echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
+                    echo "------------------------------------------------------------------------"
+                fi
+                sleep 40
             done
         done
 }
