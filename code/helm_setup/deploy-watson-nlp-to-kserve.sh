@@ -80,11 +80,11 @@ function installHelmChart () {
     echo "Ensure the changes are applied"
     echo "Restart the model controller"
     echo ""
-    echo "Scale down"
+    echo "-> Scale down"
     echo ""
     kubectl scale deployment/modelmesh-controller --replicas=0 --all -n $MESH_NAMESPACE
     sleep 10
-    echo "Scale up"
+    echo "-> Scale up"
     kubectl scale deployment/modelmesh-controller --replicas=1 --all -n $MESH_NAMESPACE
     
     verifyPod
@@ -102,7 +102,7 @@ function verifyMinIOLoadbalancer () {
     echo ""
     echo "*********************"
     echo "Function 'verifyMinIOLoadbalancer'"
-    echo "This could take up to 10 min"
+    echo "This could take up to 15 min"
     echo "*********************"
     echo ""
 
@@ -145,7 +145,7 @@ function testModel () {
 
     echo ""
     echo "*********************"
-    echo "Function 'TestModel'"
+    echo "Function 'testModel'"
     echo "*********************"
     echo ""  
 
@@ -196,11 +196,11 @@ function verifyPod () {
     echo ""
     echo "*********************"
     echo "Function 'verifyPod'"
-    echo "This can take up to 10 min"
+    echo "This can take up to 15 min"
     echo "*********************"
     echo ""
 
-    export max_retrys=10
+    export max_retrys=15
     j=0
     array=("modelmesh-controller")
     export STATUS_SUCCESS="1/1"
@@ -229,7 +229,7 @@ function verifyPod () {
                     echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
                     echo "------------------------------------------------------------------------"
                 fi
-                sleep 30
+                sleep 60
             done
         done
 }
@@ -239,11 +239,11 @@ function verifyLoadbalancer () {
     echo ""
     echo "*********************"
     echo "Function 'verifyLoadbalancer' internal"
-    echo "This can take up to 5 min"
+    echo "This can take up to 15 min"
     echo "*********************"
     echo ""
 
-    export max_retrys=10
+    export max_retrys=15
     j=0
     array=("minio-frontend-vpc-nlb")
     export STATUS_SUCCESS=""
@@ -282,11 +282,11 @@ function verifyModelMeshLoadbalancer () {
     echo ""
     echo "*********************"
     echo "Function 'verifyModelMeshLoadbalancer' internal"
-    echo "This can take up to 5 min"
+    echo "This can take up to 15 min"
     echo "*********************"
     echo ""
 
-    export max_retrys=10
+    export max_retrys=15
     j=0
     array=("modelmash-vpc-nlb")
     export STATUS_SUCCESS=""
