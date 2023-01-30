@@ -185,6 +185,9 @@ function uninstallHelmChart () {
     echo "Function 'uninstallHelmChart'"
     echo "*********************"
     echo ""
+    echo ""
+    echo "Press any key to move on with UNINSTALL:"
+    read ANY_VALUE
 
     helm uninstall $HELM_RELASE_NAME
 }
