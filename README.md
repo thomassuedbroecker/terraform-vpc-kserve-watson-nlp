@@ -459,6 +459,94 @@ Function 'uninstallHelmChart'
 release "watson-nlp-kserve" uninstalled
 ```
 
+## (Optional) Upload a custom model
+
+Visit the related GitHub project to [create a custom `Watson NLP for Embed` classification model](https://github.com/thomassuedbroecker/watson-nlp-custom-model).
+
+
+### Step 1: Log on to the web application.
+
+![](images/watson-nlp-kserve-03.png)
+
+### Step 2: Select `modelmesh-example-models.models`
+
+![](images/watson-nlp-kserve-04.png)
+
+### Step 3: Select `+` and upload your model
+
+![](images/watson-nlp-kserve-06.png)
+
+### Step 4: Verify your model is uploaded
+
+![](images/watson-nlp-kserve-07.png)
+
+### Step 5: Navigate to the `code/kubernetes` folder and execute following command
+
+Ensure you are connected to your cluster.
+
+```sh
+cd code/kubernetes
+kubectl create -f custom_model_interence.yaml
+```
+
+* Verify the inference
+
+```sh
+kubectl get inferenceservice -n modelmesh-serving
+```
+
+### Step 6: Invoke the model with `grpcurl`
+
+```sh
+export EXTERNAL_IP=150.239.112.63
+
+git clone https://github.com/IBM/ibm-watson-embed-clients
+export MY_HOME=$(pwd)
+cd $(pwd)/ibm-watson-embed-clients/watson_nlp/protos
+export EXTERNAL_IP=150.239.112.63
+
+grpcurl -plaintext -proto ./common-service.proto \
+        -H 'mm-vmodel-id: ensemble-model' \
+        -d '{"rawDocument": {"text": "The credit card does not work, and I look at the savings, but I need more money to spend."}}' \
+        "$EXTERNAL_IP:8033" watson.runtime.nlp.v1.NlpService.ClassificationPredict | jq
+
+cd $MY_HOME
+rm -rf ./ibm-watson-embed-clients
+```
+
+* Example output:
+
+```sh
+{
+  "classes": [
+    {
+      "className": "Credit card or prepaid card",
+      "confidence": 0.35290805
+    },
+    {
+      "className": "Credit reporting, credit repair services, or other personal consumer reports",
+      "confidence": 0.33384433
+    },
+    {
+      "className": "Debt collection",
+      "confidence": 0.110118665
+    },
+    {
+      "className": "Checking or savings account",
+      "confidence": 0.08072937
+    },
+    {
+      "className": "Mortgage",
+      "confidence": 0.0515578
+    }
+  ],
+  "producerId": {
+    "name": "Voting based Ensemble",
+    "version": "0.0.1"
+  }
+}
+```
+
 
 
 

@@ -1,0 +1,15 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: ensemble-model
+  namespace: modelmesh-serving
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: watson-nlp
+      storage:
+        path: models/ensemble_model
+        key: localMinIO
