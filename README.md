@@ -498,12 +498,11 @@ kubectl get inferenceservice -n modelmesh-serving
 ### Step 6: Invoke the model with `grpcurl`
 
 ```sh
-export EXTERNAL_IP=150.239.112.63
+export EXTERNAL_IP=YOUR_EXTERNAL_IP
 
 git clone https://github.com/IBM/ibm-watson-embed-clients
 export MY_HOME=$(pwd)
 cd $(pwd)/ibm-watson-embed-clients/watson_nlp/protos
-export EXTERNAL_IP=150.239.112.63
 
 grpcurl -plaintext -proto ./common-service.proto \
         -H 'mm-vmodel-id: ensemble-model' \
